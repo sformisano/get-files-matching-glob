@@ -1,6 +1,6 @@
 {
   "name": "get-files-matching-glob",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Takes a glob pattern as argument, checks the cache to see if data has already been requested for this pattern. If there's cached data, returns it. If not, returns the matching files. Throws an exception if no files match the glob pattern or if the argument passed to the glob pattern parameter is not a string.",
   "main": "src/getFilesMatchingGlob.js",
   "scripts": {
