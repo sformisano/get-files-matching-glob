@@ -166,6 +166,4 @@ describe('getFilesMatchingGlob function', () => {
       assert.strictEqual(output2, match2)
     })
   })
-
-
 })
