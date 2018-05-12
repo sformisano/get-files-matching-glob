@@ -1,8 +1,8 @@
 # Utility function to cache glob results
 
-[![Build Status](https://travis-ci.org/sformisano/getFilesMatchingGlobPattern.svg?branch=master)](https://travis-ci.org/sformisano/getFilesMatchingGlobPattern)
-[![Coverage Status](https://coveralls.io/repos/github/sformisano/graphql-bundler/badge.svg?branch=master)](https://coveralls.io/github/sformisano/graphql-bundler?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c0030cb700210507170e/maintainability)](https://codeclimate.com/github/sformisano/getFilesMatchingGlobPattern/maintainability)
+[![Build Status](https://travis-ci.org/sformisano/get-files-matching-glob.svg?branch=master)](https://travis-ci.org/sformisano/get-files-matching-glob)
+[![Coverage Status](https://coveralls.io/repos/github/sformisano/getFilesMatchingGlobPattern/badge.svg?branch=master)](https://coveralls.io/github/sformisano/getFilesMatchingGlobPattern?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b6d866ebfe5915c7e83c/maintainability)](https://codeclimate.com/github/sformisano/get-files-matching-glob/maintainability)
 
 Takes a glob pattern as argument, checks the cache to see if data has already been requested for this pattern. If there's cached data, returns it. If not, returns the matching files and caches them. Throws an exception if no files match the glob pattern or if the argument passed to the glob pattern parameter is not a string.
 
