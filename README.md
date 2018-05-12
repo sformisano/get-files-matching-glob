@@ -11,7 +11,7 @@ Takes a glob pattern as argument, checks the cache to see if data has already be
 
 ### Install
 
-```js
+```
 npm install --save get-files-matching-glob-pattern
 ```
 
