@@ -8,9 +8,10 @@ describe('_maybeGetCachedOutput function', () => {
   })
 
   it('validates arguments', () => {
-    const inputPattern = 'patterrrn'
+    const inputPattern = 'pattern'
     const inputUseCache = false
-    let testPattern, testUseCache
+    let testPattern = ''
+    let testUseCache = ''
 
     _maybeGetCachedOutput.__set__('_validateCacheArgs', (args) => {
       testPattern = args.pattern
