@@ -4,37 +4,16 @@ let getFilesMatchingGlob = null
 
 describe('getFilesMatchingGlob function', () => {
   beforeEach(() => {
-    getFilesMatchingGlob = rewire('../getFilesMatchingGlob')
+    getFilesMatchingGlob = rewire('../src/getFilesMatchingGlob')
+    getFilesMatchingGlob.__set__('glob', {
+      sync: () => {
+        return ['default non empty files array element']
+      }
+    })
   })
 
   context('always', () => {
-    it('throws an error if the glob pattern argument is not a string', () => {
-      const invalidGlobPatterns = [true, false, 5, 1.9, undefined, null, {}]
-
-      invalidGlobPatterns.forEach(invalidGlobPattern => {
-        assert.throws(() => {
-          getFilesMatchingGlob(invalidGlobPattern)
-        }, (err) => {
-          return (err instanceof Error) &&
-            /The glob pattern argument must be a string/.test(err.toString())
-        })
-      })
-    })
-
-    it('throws an error if the useCache argument is not a boolean', () => {
-      const invalidGlobPatterns = [5, 1.9, null, {}, 'hello']
-
-      invalidGlobPatterns.forEach(invalidUseCache => {
-        assert.throws(() => {
-          getFilesMatchingGlob('pattern', invalidUseCache)
-        }, (err) => {
-          return (err instanceof Error) &&
-            /The useCache argument must be a boolean/.test(err.toString())
-        })
-      })
-    })
-
-    it('passes the glob pattern argument to the internal glob.sync call ', () => {
+    it('passes the glob pattern argument to the internal glob.sync call', () => {
       const globPattern = 'pattern/received/by/glob/sync'
       const validGlobSyncOutput = ['some-file.js']
 
@@ -85,62 +64,36 @@ describe('getFilesMatchingGlob function', () => {
   })
 
   context('with useCache set to true', () => {
-    it('creates an empty cache object property it there is not already one for the glob passed as argument', () => {
-      const globPattern = 'pattern/to/cache'
-      const globCache = getFilesMatchingGlob.__get__('globCache')
+    it('returns cached data if the _maybeGetCachedOutput function returns an object', () => {
+      const cachedOutput = {
+        something: 'hello world'
+      }
 
-      getFilesMatchingGlob.__set__('glob', {
-        sync: () => {
-          return ['simulate non empty output']
-        }
+      getFilesMatchingGlob.__set__('_maybeGetCachedOutput', () => {
+        return cachedOutput
       })
 
-      assert.ok(!globCache.hasOwnProperty(globPattern))
-      getFilesMatchingGlob(globPattern)
-      assert.ok(globCache.hasOwnProperty(globPattern))
+      assert.strictEqual(getFilesMatchingGlob(''), cachedOutput)
     })
 
-    it('returns cached data if the cache argument has a property whose key equals the glob pattern argument', () => {
-      const test = {}
-      const pattern = 'some/test/pattern'
-      const match = ['matching-file1.js']
+    it('does not return cached data if the _maybeGetCachedOutput function returns null', () => {
+      const globOutput = ['output-file.js']
 
-      getFilesMatchingGlob.__set__('glob', {
-        sync: (patternArg) => {
-          return test[patternArg]
+      getFilesMatchingGlob.__set__('_maybeGetCachedOutput', () => {
+        return null
+      })
+
+      getFilesMatchingGlob.__set__('glob',  {
+        sync: () => {
+          return globOutput
         }
       })
 
-      test[pattern] = match
-      const output1 = getFilesMatchingGlob(pattern)
-
-      assert.strictEqual(output1, match)
-
-      test[pattern] = null
-      const output2 = getFilesMatchingGlob(pattern)
-
-      // needs to be still equal to match despite test[pattern] being set to equal null,
-      // because it's supposed to return the previously cached result for the same pattern
-      assert.strictEqual(output2, match)
+      assert.strictEqual(getFilesMatchingGlob(''), globOutput)
     })
   })
 
   context('with useCache set to false', () => {
-    it('does NOT create cache entries', () => {
-      const globPattern = 'pattern/to/cache'
-      const cache = getFilesMatchingGlob.__get__('globCache')
-
-      getFilesMatchingGlob.__set__('glob', {
-        sync: () => {
-          return ['simulate non empty output']
-        }
-      })
-
-      assert.ok(!cache.hasOwnProperty(globPattern))
-      getFilesMatchingGlob(globPattern, false)
-      assert.ok(!cache.hasOwnProperty(globPattern))
-    })
-
     it('does NOT return any cached data even if it matches the glob pattern argument', () => {
       const test = {}
       const pattern = 'some/test/pattern'
