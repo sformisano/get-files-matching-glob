@@ -7,9 +7,17 @@
 
 Takes a glob pattern as argument, checks the cache to see if data has already been requested for this pattern. If there's cached data, returns it. If not, returns the matching files and caches them. Throws an exception if no files match the glob pattern or if the argument passed to the glob pattern parameter is not a string.
 
-# How to use
+# Instructions
 
+### Install
+
+```js
+npm install --save get-files-matching-glob-pattern
 ```
+
+### Usage
+
+```js
 const getFilesMatchingGlob = require('get-files-matching-glob-pattern')
 
 const useCache = true // true/false to cache paths (defaults to true)
