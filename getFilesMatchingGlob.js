@@ -10,7 +10,7 @@ let globCache = {}
  *
  * @param {string} pattern
  * @param {Boolean} useCache
- * @returns {Array|{}}
+ * @returns {Array}
  * @private
  */
 module.exports = (pattern, useCache = true) => {
