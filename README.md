@@ -12,13 +12,13 @@ Takes a glob pattern as argument, checks the cache to see if data has already be
 ### Install
 
 ```
-npm install --save get-files-matching-glob-pattern
+npm install --save get-files-matching-glob
 ```
 
 ### Usage
 
 ```js
-const getFilesMatchingGlob = require('get-files-matching-glob-pattern')
+const getFilesMatchingGlob = require('get-files-matching-glob')
 
 const useCache = true // true/false to cache paths (defaults to true)
 const myFiles = getFilesMatchingGlob('some/glob/string/**/*.js', useCache)
