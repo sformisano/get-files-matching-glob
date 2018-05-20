@@ -5,6 +5,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/b6d866ebfe5915c7e83c/maintainability)](https://codeclimate.com/github/sformisano/get-files-matching-glob/maintainability)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
+[![NPM](https://nodei.co/npm/get-files-matching-glob.png?mini=true)](https://npmjs.org/package/get-files-matching-glob)
+
 Takes a glob pattern as argument, checks the cache to see if data has already been requested for this pattern. If there's cached data, returns it. If not, returns the matching files and caches them. Throws an exception if no files match the glob pattern or if the argument passed to the glob pattern parameter is not a string.
 
 # Instructions
